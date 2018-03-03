@@ -11,6 +11,9 @@
   "dependencies": {
     "express": "^4.16.2",
     "fs": "0.0.1-security",
+    "gulp": "^3.9.1",
+    "gulp-zip": "^4.1.0",
+    "minimist": "^1.2.0",
     "path": "^0.12.7"
   }
 }
