@@ -1,13 +1,23 @@
 var paddle = function(){
 
+    var y = 10;
+    var speed = 2;
     var _update = function(delta){
+        if(inputManager.keysDown[87])
+            y-= speed * 0.06 * delta;
+        if(inputManager.keysDown[83])
+            y+= speed * 0.06 * delta;
     }
 
-    var count = 0;
+    var _updatePosition = function(event){
+    }
+    
+    window.addEventListener("keydown", _updatePosition);
+
     var _render = function(context){
+        context.beginPath();
         context.fillStyle = "#FFFFFF";
-        context.rect(20,20,150 + count,150);
-        context.fill();
+        context.fillRect(10,y,10,50);
     }
 
     return {

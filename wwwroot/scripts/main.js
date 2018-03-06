@@ -6,6 +6,4 @@ window.onload = function(){
     var player2 = paddle();
 
     gameEngine.addGameObject(player1);
-    gameEngine.addGameObject(player2);
 }
-
