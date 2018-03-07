@@ -4,11 +4,8 @@ var renderContext = function(canvas){
     var _context = canvas.getContext("2d");
 
     var _resize = function(){
-        var pa = _canvas.parentElement;
-
-        console.log(pa.width);
-        _canvas.width = 1200;
-        _canvas.height = 600;
+        _canvas.width = window.innerWidth;
+        _canvas.height = window.innerHeight;
     }
 
     var _clear = function(){
