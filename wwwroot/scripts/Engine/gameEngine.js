@@ -21,7 +21,7 @@ function GameEngine(renderContext) {
         _animator(_mainLoop);
         var delta = timeElapsed - _lastFrame;
         _lastFrame = timeElapsed;
-
+        
         _update(delta, _gameState);
         _render(_renderContext);
     }
@@ -31,11 +31,10 @@ function GameEngine(renderContext) {
         if (!self.gameObjects)
             return;
 
-
         self.gameObjects.forEach((gameObject) => {
             if (!gameObject.isActive)
                 return;
-            gameObject.update(delta, gameState);
+            gameObject.Update(delta, gameState);
         })
     }
 
@@ -45,15 +44,16 @@ function GameEngine(renderContext) {
 
         if (!self.gameObjects)
             return;
+
         self.gameObjects.forEach((gameObject) => {
             if (!gameObject.isActive)
                 return;
 
-            gameObject.render(renderContext.context);
+            gameObject.Render(renderContext.context);
         })
     }
 
-    _mainLoop();
+    _mainLoop(0);
 }
 
 GameEngine.prototype.AddGameObject = function (gameObject) {

@@ -10,7 +10,7 @@ function Paddle(x,y,name){
     this.upperLimit = 0;
 }
 
-Paddle.prototype.update = function(delta, gameState){
+Paddle.prototype.Update = function(delta, gameState){
     if(this.name != "Player1")
         return;
         
@@ -26,7 +26,7 @@ Paddle.prototype.update = function(delta, gameState){
         this.y = Math.min(this.y, gameState.renderContext.canvas.height - this.size[1]);
 }
 
-Paddle.prototype.render = function(context){
+Paddle.prototype.Render = function(context){
     context.beginPath();
     context.fillStyle = "#FFFFFF";
     context.fillRect(this.x,this.y,this.size[0],this.size[1]);

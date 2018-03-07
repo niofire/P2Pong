@@ -8,8 +8,11 @@ window.onload = function(){
 
 
     var player2 = new Paddle(0,10,"Player2");
-    
+    var ball = new Ball(renderContext.canvas.width / 2,100);
+
     player2.x = renderContext.canvas.width - offset - player2.size[0];
+    
     gameEngine.AddGameObject(player1);
     gameEngine.AddGameObject(player2);
+    gameEngine.AddGameObject(ball);
 }
