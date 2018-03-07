@@ -8,8 +8,12 @@ var inputManager = (function(){
     
     window.addEventListener("keyup", function(event){
         _keysDown[event.keyCode || e.which] = false;
-        delete _keysDown[event.keyCode];
     },true)
+
+    window.addEventListener("blur",function(event){
+        _keysDown[83] = false;
+        _keysDown[87] = false;
+    });
 
     return{
         keysDown: _keysDown

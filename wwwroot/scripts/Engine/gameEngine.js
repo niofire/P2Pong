@@ -1,50 +1,61 @@
 
-var engine = function () {
+function GameEngine(renderContext) {
 
-    var lastFrame = 0;
-    var count = 0;
-    var _renderContext = renderContext(document.getElementById("GameCanvas"));
-    var _gameObjects = [];
-    var _animator =  window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || function (callback) {
-        window.setTimeout(callback, 1000 / 60)
-    };
+    var self = this;
 
-    var _mainLoop = function(timeElapsed){
+    var _lastFrame = 0;
+    var _renderContext = renderContext;
+    var _gameState = {renderContext:renderContext};
+    var _animator =
+        window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        function (callback) {
+            window.setTimeout(callback, 1000 / 60)
+        };
+
+    this.gameObjects = [];
+
+    var _mainLoop = function (timeElapsed) {
+
         _animator(_mainLoop);
-        var delta = timeElapsed - lastFrame;
-        lastFrame = timeElapsed;
+        var delta = timeElapsed - _lastFrame;
+        _lastFrame = timeElapsed;
 
-        _update(delta);
+        _update(delta, _gameState);
         _render(_renderContext);
     }
 
-    var _update = function (delta, state) {
+    var _update = function (delta, gameState) {
 
-        _gameObjects.forEach((gameObject)=>{
-            if(!gameObject.isActive)
+        if (!self.gameObjects)
+            return;
+
+
+        self.gameObjects.forEach((gameObject) => {
+            if (!gameObject.isActive)
                 return;
-            gameObject.update(delta);
+            gameObject.update(delta, gameState);
         })
     }
 
-    var _render = function(renderContext){
+    var _render = function (renderContext) {
 
-        renderContext.clear();
+        renderContext.Clear();
 
-        _gameObjects.forEach((gameObject)=>{
-            if(!gameObject.isActive)
+        if (!self.gameObjects)
+            return;
+        self.gameObjects.forEach((gameObject) => {
+            if (!gameObject.isActive)
                 return;
-            
-            gameObject.render(renderContext.ctx);
-        })
-    }
 
-    var _addGameObject = function(gameObject){
-        _gameObjects.push(gameObject);
+            gameObject.render(renderContext.context);
+        })
     }
 
     _mainLoop();
-    return {
-        addGameObject: _addGameObject
-    }
+}
+
+GameEngine.prototype.AddGameObject = function (gameObject) {
+    this.gameObjects.push(gameObject);
 }

@@ -1,21 +1,26 @@
-var renderContext = function(canvas){
+function RenderContext(canvas){
 
-    var _canvas = canvas;
-    var _context = canvas.getContext("2d");
+    this.context     = canvas.getContext("2d");
+    this.canvas      = canvas;
+    this.maxHeight   = 750;
+    this.aspectRatio = 16.0/10.0;
 
-    var _resize = function(){
-        _canvas.width = window.innerWidth;
-        _canvas.height = window.innerHeight;
+    this.Resize();
+}
+
+
+RenderContext.prototype.Clear = function() {
+    this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+}
+
+RenderContext.prototype.Resize = function(){
+    if(window.innerHeight * this.aspectRatio < window.innerWidth){
+        //height is limiting the window size
+        this.canvas.height = Math.min(window.innerHeight, this.maxHeight);
     }
-
-    var _clear = function(){
-        _context.clearRect(0, 0, _canvas.width, _canvas.height);
+    else{
+        //width is limiting window size
+        this.canvas.height = Math.min(window.innerWidth / this.aspectRatio, this.maxHeight);
     }
-
-
-    _resize();
-    return{
-        ctx: _context,
-        clear : _clear
-    }
+    this.canvas.width = this.canvas.height * this.aspectRatio;
 }

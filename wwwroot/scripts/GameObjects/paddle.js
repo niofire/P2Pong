@@ -1,28 +1,33 @@
-var paddle = function(){
 
-    var y = 10;
-    var speed = 2;
-    var _update = function(delta){
-        if(inputManager.keysDown[87])
-            y-= speed * 0.06 * delta;
-        if(inputManager.keysDown[83])
-            y+= speed * 0.06 * delta;
-    }
+function Paddle(x,y,name){
+    this.x = x;
+    this.y = y;
+    this.name = name;
+    this.speed = 3;
+    this.size = [10,50];
+    this.isActive = true;
 
-    var _updatePosition = function(event){
-    }
-    
-    window.addEventListener("keydown", _updatePosition);
+    this.upperLimit = 0;
+}
 
-    var _render = function(context){
-        context.beginPath();
-        context.fillStyle = "#FFFFFF";
-        context.fillRect(10,y,10,50);
-    }
+Paddle.prototype.update = function(delta, gameState){
+    if(this.name != "Player1")
+        return;
+        
+    if(inputManager.keysDown[87])
+        this.y -= this.speed * 0.06 * delta;
+    if(inputManager.keysDown[83])
+        this.y += this.speed * 0.06 * delta;
 
-    return {
-        update: _update,
-        render: _render,
-        isActive: true
-    }
+    //Check if out of bound
+    if(this.y < this.upperLimit)
+        this.y = this.upperLimit;
+    else
+        this.y = Math.min(this.y, gameState.renderContext.canvas.height - this.size[1]);
+}
+
+Paddle.prototype.render = function(context){
+    context.beginPath();
+    context.fillStyle = "#FFFFFF";
+    context.fillRect(this.x,this.y,this.size[0],this.size[1]);
 }
