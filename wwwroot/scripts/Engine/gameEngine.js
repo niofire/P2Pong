@@ -1,11 +1,12 @@
-
-function GameEngine(renderContext) {
+function GameEngine(renderContext, screenManager) {
 
     var self = this;
 
     var _lastFrame = 0;
     var _renderContext = renderContext;
-    var _gameState = {renderContext:renderContext};
+    var _screenManager = screenManager;
+    
+    var _gameState = {renderContext:renderContext, screenManager : _screenManager};
     var _animator =
         window.requestAnimationFrame ||
         window.webkitRequestAnimationFrame ||
@@ -15,7 +16,7 @@ function GameEngine(renderContext) {
         };
 
     this.gameObjects = [];
-
+    
     var _mainLoop = function (timeElapsed) {
 
         _animator(_mainLoop);
@@ -48,7 +49,6 @@ function GameEngine(renderContext) {
         self.gameObjects.forEach((gameObject) => {
             if (!gameObject.isActive)
                 return;
-
             gameObject.Render(renderContext.context);
         })
     }

@@ -1,18 +1,22 @@
 
 window.onload = function(){
 
-    var renderContext = new RenderContext(document.getElementById("GameCanvas"));
-    var gameEngine = new GameEngine(renderContext);
-    var offset = 50;
-    var player1 = new Paddle(offset,10,"Player1");
+    //var gameInstance = new GameInstance(document.getElementById("GameCanvas"));
 
-
-    var player2 = new Paddle(0,10,"Player2");
-    var ball = new Ball(renderContext.canvas.width / 2,100);
-
-    player2.x = renderContext.canvas.width - offset - player2.size[0];
+    //Start game, boot up intro screen
     
-    gameEngine.AddGameObject(player1);
-    gameEngine.AddGameObject(player2);
-    gameEngine.AddGameObject(ball);
+    var gameState = new GameState();
+    gameState.Player1.Name = "Player1";
+    gameState.Player2.Name = "Player2";
+
+    this._screenManager = new ScreenManager();
+    this._renderContext = new RenderContext(document.getElementById("GameCanvas"));
+    //Start the intro screen
+    this._screenManager.ChangeScreens(new IntroScreen(this._screenManager, this._renderContext, gameState));
+
+    //
+    //Start network node.
+    //Start game node
+    
+
 }

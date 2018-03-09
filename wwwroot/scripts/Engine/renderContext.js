@@ -13,6 +13,7 @@ RenderContext.prototype.Clear = function() {
 }
 
 RenderContext.prototype.Resize = function(){
+    
     if(window.innerHeight * this.aspectRatio < window.innerWidth){
         //height is limiting the window size
         this.canvas.height = Math.min(window.innerHeight, this.maxHeight);
@@ -21,9 +22,8 @@ RenderContext.prototype.Resize = function(){
         //width is limiting window size
         this.canvas.height = Math.min(window.innerWidth / this.aspectRatio, this.maxHeight);
     }
+
     this.canvas.width = this.canvas.height * this.aspectRatio;
-
-
     this.AdjustFramePosition();
 }
 
