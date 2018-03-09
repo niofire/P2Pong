@@ -5,7 +5,7 @@ function Paddle(x,y,name){
     this.name = name;
     this.speed = 3;
     this.size = [10,50];
-    this.isActive = true;
+    this.IsActive = true;
 
     this.upperLimit = 0;
 }

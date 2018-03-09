@@ -2,17 +2,27 @@ function TextElement(content, x, y){
     this.x = x;
     this.y = y;
     this.Text = content;
-    this.isActive = true;
+    this.IsActive = true;
 }
 
 
 TextElement.prototype.Render = function(context){
-    console.log("Asdf");
-    context.font = "30px Arial";
-    context.fillStyle = "#FFFFFF";
-    context.fillText(this.Text);
+    if(this.Alignment)
+        context.textAlign = this.Alignment;
+    
+    if(!this.Size)
+        this.Size = 30;
+    
+    context.font = this.Size + 'px "Press Start 2P"';
+
+    if(!this.color)
+        this.color = "#FFFFFF";
+    context.fillStyle = this.color;
+    context.fillText(this.Text, this.x, this.y);
 }
 
 TextElement.prototype.Update = function(delta, gameState){
-    //do nothing
+    if(this.Effect)
+        this.Effect(delta, gameState);
 }
+

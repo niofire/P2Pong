@@ -36,3 +36,7 @@ RenderContext.prototype.AdjustFramePosition = function() {
     this.canvas.style.top = ((parentSize[1] - this.canvas.height) / 2) + "px";
 
 }
+
+RenderContext.prototype.GetScreenCenter = function(){
+    return [this._renderContext.canvas.width / 2, this._renderContext.canvas.height / 2];
+}

@@ -5,29 +5,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-
+    <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet"> 
     <link rel="stylesheet" type="text/css" media="screen" href="pong.css" />
     <title>Document</title>
 
+    <!-- Model -->
     <script src="scripts/GameState/GameState.js"></script>
     <script src="scripts/GameState/PlayerModel.js"></script>
-    <script src="scripts/GameState/InputManager.js"></script>
-    <script src="scripts/Engine/renderContext.js"></script>
-    <script src="scripts/Engine/gameEngine.js"></script>
-    <script src="scripts/GameObjects/TextElement.js"></script>
-    <script src="scripts/GameObjects/paddle.js"></script>
+    
+    <!-- Entities -->
+    <script src="scripts/Entities/InputManager.js"></script>
+    <script src="scripts/Entities/ScreenManager.js"></script>
+    <script src="scripts/Entities/WindowContext.js"></script>
+    
+    <!-- Engine -->
+    <script src="scripts/Entities/GameEngine.js"></script>
+
+    <!-- GameObjects -->
     <script src="scripts/GameObjects/Ball.js"></script>
-    <script src="scripts/GameState/Screens/GameScreen.js"></script>
-    <script src="scripts/GameState/Screens/IntroScreen.js"></script>
-    <script src="scripts/GameState/Screens/ScreenManager.js"></script>
+    <script src="scripts/GameObjects/Paddle.js"></script>
+    <script src="scripts/GameObjects/TextElement.js"></script>
+
+    <!-- Screens -->
+    <script src="scripts/GameObjects/Screens/GameScreen.js"></script>
+    <script src="scripts/GameObjects/Screens/StartMenu.js"></script>
+    <script src="scripts/GameObjects/Screens/PlayerSelectMenu.js"></script>
+    <script src="scripts/GameObjects/Screens/P2PSelectMenu.js"></script>
+    <script src="scripts/GameObjects/Screens/JoinMenu.js"></script>
+    <script src="scripts/GameObjects/Screens/HostMenu.js"></script>
+    
     <script src="scripts/main.js"></script>
 </head>
-
-<body style="width: 1800px; height:1200px;">
+<body>
     <canvas id="GameCanvas">
     </canvas>
 </body>
-
 </html>
-
-<!-- -->

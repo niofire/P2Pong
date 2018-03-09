@@ -5,7 +5,7 @@ function Ball(x,y){
     this.y               = y;
     this.speed           = 2;
     this.size            = 10;
-    this.isActive        = true;
+    this.IsActive        = true;
     this.direction       = [-1,0];
 }
 

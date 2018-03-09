@@ -33,7 +33,7 @@ function GameEngine(renderContext, screenManager) {
             return;
 
         self.gameObjects.forEach((gameObject) => {
-            if (!gameObject.isActive)
+            if (!gameObject.IsActive)
                 return;
             gameObject.Update(delta, gameState);
         })
@@ -47,7 +47,7 @@ function GameEngine(renderContext, screenManager) {
             return;
 
         self.gameObjects.forEach((gameObject) => {
-            if (!gameObject.isActive)
+            if (!gameObject.IsActive || !gameObject.Render)
                 return;
             gameObject.Render(renderContext.context);
         })
@@ -58,4 +58,8 @@ function GameEngine(renderContext, screenManager) {
 
 GameEngine.prototype.AddGameObject = function (gameObject) {
     this.gameObjects.push(gameObject);
+}
+
+GameEngine.prototype.Clear = function(){
+    this.gameObjects = [];
 }
