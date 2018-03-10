@@ -4,6 +4,7 @@ var __inputManager = (function(){
 
     window.addEventListener("keydown", function(event){
         _keysDown[event.keyCode || e.which] = true;
+
     },true);
     
     window.addEventListener("keyup", function(event){
@@ -13,6 +14,8 @@ var __inputManager = (function(){
     window.addEventListener("blur",function(event){
         _keysDown[83] = false;
         _keysDown[87] = false;
+        _keysDown[38] = false;
+        _keysDown[40] = false;
     });
 
     return{

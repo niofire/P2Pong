@@ -34,7 +34,7 @@ OptionsSelector.prototype.Update = function (delta, gameState) {
 
 
     //Up Direction
-    if (__inputManager.keysDown[87]) {
+    if (__inputManager.keysDown[87] ||  __inputManager.keysDown[38]) {
         this.mCurrentTime = this.KeyPressDelay;
     
         this._removeCursor();
@@ -47,7 +47,7 @@ OptionsSelector.prototype.Update = function (delta, gameState) {
     }
 
     //Down Direction
-    if (__inputManager.keysDown[83]) {
+    if (__inputManager.keysDown[83] ||  __inputManager.keysDown[40]) {
         this.mCurrentTime = this.KeyPressDelay;
 
         this._removeCursor();

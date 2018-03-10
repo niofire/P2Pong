@@ -14,9 +14,9 @@ Paddle.prototype.Update = function(delta, gameState){
     if(this.name != "Player1")
         return;
         
-    if(__inputManager.keysDown[87])
+    if(__inputManager.keysDown[87] || __inputManager.keysDown[38])
         this.y -= this.speed * 0.06 * delta;
-    if(__inputManager.keysDown[83])
+    if(__inputManager.keysDown[83] ||  __inputManager.keysDown[40])
         this.y += this.speed * 0.06 * delta;
 
     //Check if out of bound
