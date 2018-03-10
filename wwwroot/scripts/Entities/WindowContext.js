@@ -1,11 +1,12 @@
-var windowContext = function(){
+var __windowContext = function(){
 
-    var canvas = document.getElementById("GameCanvas");
+    var mIsInitialized = false;
+    this.c;
+    var self = this;
+    var ca;
     var maxHeight = 500;
     var aspectRatio = 16.0/10.0
-    
-
-
+    var canvas;
     var _adjustFramePosition = function(){
         var parent = canvas.parentNode.parentElement;
         var parentSize = [ parent.clientWidth, parent.clientHeight];
@@ -17,6 +18,10 @@ var windowContext = function(){
     var _getScreenCenter = function(){
         return [canvas.width / 2, canvas.height / 2];
     }
+
+    window.addEventListener("load", function(){
+        _init();
+    });
 
     var _resize = function(){
         if(window.innerHeight * aspectRatio < window.innerWidth){
@@ -32,8 +37,20 @@ var windowContext = function(){
         _adjustFramePosition();
     }
 
+    var _init = function(){
+        if(mIsInitialized)
+            return;
+        mIsInitialized = true;
+        canvas =  document.getElementById("GameCanvas");
+        __windowContext.Canvas = document.getElementById("GameCanvas");
+
+        _resize();
+    }
+
     return {
         GetScreenCenter : _getScreenCenter,
-        Resize : _resize
+        Resize : _resize,
+        Canvas : canvas,
+        Init : _init
     }
 }();

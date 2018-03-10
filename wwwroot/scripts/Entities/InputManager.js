@@ -1,5 +1,5 @@
 
-var inputManager = (function(){
+var __inputManager = (function(){
     var _keysDown = {};
 
     window.addEventListener("keydown", function(event){

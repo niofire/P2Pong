@@ -1,17 +1,14 @@
-function StartMenu(gameEngine){
-    this._gameEngine = gameEngine;
+function StartMenu(){
+    this.IsActive = true;
 }
 
 
 StartMenu.prototype.Setup = function(){
     
-    var screenCenter = windowContext.GetScreenCenter();
+    var screenCenter = __windowContext.GetScreenCenter();
     
     //Title Label
-    var title = new TextElement("PONG", screenCenter[0], 60);
-    title.Alignment = "center";
-    title.Size = 30;
-    this._gameEngine.AddGameObject(title);
+    __gameEngine.AddGameObject(new TitleLabel());
 
     //Start game label
     var startGameLabel = new TextElement("START GAME", screenCenter[0], screenCenter[1] + 50);
@@ -35,17 +32,15 @@ StartMenu.prototype.Setup = function(){
         }
     }
 
-    this._gameEngine.AddGameObject(startGameLabel);
+    __gameEngine.AddGameObject(startGameLabel);
 }
 
 StartMenu.prototype.Cleanup = function(){
-    _gameEngine.Clear();
+    __gameEngine.Clear();
 }
 
 StartMenu.prototype.Update = function(delta, gameState){
     //if spacebar or enter-, goes to next screen
-    console.log(inputManager.keysDown);
-    if(false){
-        screenManager.ChangeScreen(new PlayerSelectMenu(gameEngine));
-    }
+    if(__inputManager.keysDown[13] || __inputManager.keysDown[32])
+        screenManager.ChangeScreen(new PlayerSelectMenu());
 }
