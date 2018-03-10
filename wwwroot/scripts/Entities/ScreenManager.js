@@ -1,5 +1,5 @@
 
-var screenManager = function () {
+var __screenManager = function () {
 
     var _changeScreen = function (screen) {
 

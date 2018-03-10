@@ -17,7 +17,7 @@ StartMenu.prototype.Setup = function(){
     var black = "#000000";
     var white = "#FFFFFF";
     var time = 0;
-    var blinkRate = [800,400];
+    var blinkRate = [600,350];
     this.color = "#FFFFFF";
 
     startGameLabel.Effect = function(delta, gameState){
@@ -42,5 +42,5 @@ StartMenu.prototype.Cleanup = function(){
 StartMenu.prototype.Update = function(delta, gameState){
     //if spacebar or enter-, goes to next screen
     if(__inputManager.keysDown[13] || __inputManager.keysDown[32])
-        screenManager.ChangeScreen(new PlayerSelectMenu());
+        __screenManager.ChangeScreen(new PlayerSelectMenu());
 }

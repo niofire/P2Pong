@@ -1,5 +1,6 @@
 function PlayerSelectMenu(gameEngine){
     this._gameEngine = gameEngine;
+    this.IsActive = true;
 }
 
 PlayerSelectMenu.prototype.Update = function(delta, gameState){
@@ -10,21 +11,19 @@ PlayerSelectMenu.prototype.Setup = function(){
     
     //Add title
     __gameEngine.AddGameObject(new TitleLabel());
-    var center = __windowContext.GetScreenCenter();
-    center[1] += 50;
-    var labelOffsets = 25;
-    var textSize = 22;
-    //1 player label
 
-    var onePlayerLabel = new TextElement("1 PLAYER", center[0], center[1] - labelOffsets );
-    onePlayerLabel.Size = textSize;
-    var twoPlayerLabel = new TextElement("2 PLAYER", center[0], center[1] + labelOffsets );
-    twoPlayerLabel.Size = textSize;
+    var selector = new OptionsSelector();
+    selector.AddOption("1 PLAYER", function(){
+        __screenManager.ChangeScreen(new GameScreen());
+    })
 
-    __gameEngine.AddGameObject(onePlayerLabel);
-    __gameEngine.AddGameObject(twoPlayerLabel);
+    selector.AddOption("2 PLAYER", function(){
+        __screenManager.ChangeScreen(new P2PSelectMenu());
+    })
+
+    __gameEngine.AddGameObject(selector);
 }
 
 PlayerSelectMenu.prototype.Cleanup = function(){
-
+    __gameEngine.Clear();
 }

@@ -5,13 +5,12 @@ window.onload = function(){
 
     //Start game, boot up intro screen
     
-    var gameState = new GameState();
-    gameState.Player1.Name = "Player1";
-    gameState.Player2.Name = "Player2";
-    screenManager.ChangeScreen(new StartMenu());
+    console.log(__gameState);
+    console.log(__screenManager);
+    __gameState.Player1.Name = "Player1";
+    __gameState.Player2.Name = "Player2";
+    __screenManager.ChangeScreen(new StartMenu());
     //
     //Start network node.
     //Start game node
-    
-
 }

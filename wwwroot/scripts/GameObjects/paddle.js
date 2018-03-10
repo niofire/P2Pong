@@ -23,7 +23,7 @@ Paddle.prototype.Update = function(delta, gameState){
     if(this.y < this.upperLimit)
         this.y = this.upperLimit;
     else
-        this.y = Math.min(this.y, gameState.renderContext.canvas.height - this.size[1]);
+        this.y = Math.min(this.y, __windowContext.Canvas.height - this.size[1]);
 }
 
 Paddle.prototype.Render = function(context){
