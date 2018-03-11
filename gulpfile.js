@@ -3,6 +3,7 @@ var path = require('path');
 var zip = require('gulp-zip');
 var minimist = require('minimist');
 var fs = require('fs');
+const mocha = require('gulp-mocha');
 
 var knownOptions = {
 	string: 'packageName',
@@ -37,3 +38,8 @@ gulp.task('default', function () {
         .pipe(zip(options.packageName))
         .pipe(gulp.dest(options.packagePath));
 });
+
+gulp.task('unit-test', function(){
+	gulp.src('UnitTests/boundingBoxTests.js', {read: false})
+	.pipe(mocha({reporter: 'nyan'}))
+})
