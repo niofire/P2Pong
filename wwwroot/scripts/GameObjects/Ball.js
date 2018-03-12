@@ -4,27 +4,19 @@ function Ball(x,y){
     this.x               = x;
     this.y               = y;
     this.speed           = 2;
-    this.Size            = 10;
+    this.Size            = [10,10];
     this.IsActive        = true;
-    this.direction       = [-1,0];
+    this.Direction       = [-1,0];
 }
 
 Ball.prototype.Update = function(delta, gameState){
-    this.x += this.direction[0] * this.speed * 0.06 * delta;
-    this.y += this.direction[1] * this.speed * 0.06 * delta;
-
-    //Check if scored
-    if(this.x < 0 - this.Size){
-        this.ResetState(1);
-    }
-    else if(this.x > __windowContext.Canvas.width){
-        this.ResetState(-1);
-    }
-
+    this.x += this.Direction[0] * this.speed * 0.06 * delta;
+    this.y += this.Direction[1] * this.speed * 0.06 * delta;
+    
     //Bounce back ball if out of bound
-    if(this.y >= __windowContext.Canvas.height - this.Size 
+    if(this.y >= __windowContext.Canvas.height - this.Size[1] 
     || this.y <= 0 )
-        this.direction[1] *= -1;
+        this.Direction[1] *= -1;
     
 }
 
@@ -39,13 +31,13 @@ Ball.prototype.GenerateAngle = function(){
 Ball.prototype.Render = function(context){
     context.beginPath();
     context.fillStyle = "#FFFFFF";
-    context.fillRect(this.x,this.y,this.Size,this.Size);
+    context.fillRect(this.x,this.y,this.Size[0],this.Size[1]);
 }
 
 Ball.prototype.ResetState = function(dir){
     this.x = this.defaultPosition[0];
     this.y = this.defaultPosition[1];
 
-    this.direction = this.GenerateAngle();
-    this.direction[0] *= dir;
+    this.Direction = this.GenerateAngle();
+    this.Direction[0] *= dir;
 }

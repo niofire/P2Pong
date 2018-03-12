@@ -40,6 +40,7 @@ gulp.task('default', function () {
 });
 
 gulp.task('unit-test', function(){
-	gulp.src('UnitTests/boundingBoxTests.js', {read: false})
+	gulp
+	.src('test/boundingBoxTests.js', {read: false})
 	.pipe(mocha({reporter: 'nyan'}))
 })

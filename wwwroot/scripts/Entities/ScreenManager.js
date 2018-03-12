@@ -6,9 +6,9 @@ var __screenManager = function () {
         if (this.currentScreen)
             this.currentScreen.Cleanup();
             
-        __gameEngine.AddGameObject(screen);
         this.currentScreen = screen;
         screen.Setup();
+        __gameEngine.AddGameObject(screen);
     }
 
     return {

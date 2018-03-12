@@ -18,7 +18,7 @@ PlayerSelectMenu.prototype.Setup = function(){
     })
 
     selector.AddOption("2 PLAYER", function(){
-        __screenManager.ChangeScreen(new P2PSelectMenu());
+        __screenManager.ChangeScreen(new MutliplayerOptionMenu());
     })
 
     __gameEngine.AddGameObject(selector);

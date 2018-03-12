@@ -1,14 +1,14 @@
 function OptionsSelector() {
-    this.mOptions = [];
-    this.CursorIndex = 0;
-    this.OffsetStep = 50;
-    this.InitialOffset = 75;
-    this.Size = 22;
-    this.IsActive = true;
-    this.KeyPressDelay = 200;
-    this.mCurrentTime = 0;
+    this.mOptions           = [];
+    this.CursorIndex        = 0;
+    this.OffsetStep         = 50;
+    this.InitialOffset      = 75;
+    this.Size               = 22;
+    this.IsActive           = true;
+    this.KeyPressDelay      = 200;
+    this.mCurrentTime       = 0;
     this.SelectionCharacter = '>';
-    this.mCurrentTime = 200;
+    this.mCurrentTime       = 200;
     //1 player label
 }
 
