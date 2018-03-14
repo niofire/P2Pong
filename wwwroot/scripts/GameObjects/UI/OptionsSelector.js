@@ -35,6 +35,8 @@ OptionsSelector.prototype.Update = function (delta, gameState) {
 
     //Up Direction
     if (__inputManager.keysDown[87] ||  __inputManager.keysDown[38]) {
+        var snd = new Audio("assets/sound/menuBoop.wav"); // buffers automatically when created
+        snd.play();
         this.mCurrentTime = this.KeyPressDelay;
     
         this._removeCursor();
@@ -48,6 +50,8 @@ OptionsSelector.prototype.Update = function (delta, gameState) {
 
     //Down Direction
     if (__inputManager.keysDown[83] ||  __inputManager.keysDown[40]) {
+        var snd = new Audio("assets/sound/menuBoop.wav"); // buffers automatically when created
+        snd.play();
         this.mCurrentTime = this.KeyPressDelay;
 
         this._removeCursor();

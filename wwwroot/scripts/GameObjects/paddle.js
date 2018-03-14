@@ -8,9 +8,7 @@ function Paddle(x,y,name){
     this.IsActive = true;
     this.upperLimit = 0;
     this._movementStrategies = [this._onePlayerMovement, this._twoPlayerLocalMovement, this._twoPlayerOnlineMovement];
-
 }
-
 
 Paddle.prototype.Update = function(delta, gameState){
        
@@ -33,7 +31,8 @@ Paddle.prototype.CheckBallCollision = function(ball){
     if(CheckRectCollision(this, ball)){
         var pCenter = this.y + this.Size[1] / 2;
         var bCenter = ball.y + ball.Size[1] / 2;
-
+        var snd = new Audio("assets/sound/paddleBoop.wav"); // buffers automatically when created
+        snd.play();
         //Add/remove deg, up to max of 70 deg
         
         ball.Direction[0] *= -1;
