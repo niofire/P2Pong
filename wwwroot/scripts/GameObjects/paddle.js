@@ -52,16 +52,11 @@ Paddle.prototype._onePlayerMovement = function(paddle, delta){
 
 Paddle.prototype._twoPlayerLocalMovement = function(paddle, delta){
 
-    let up = 87
-    let down = 83;
-    if(paddle.name == "Player2")
-    {
-        up = 38;
-        down = 40;
-    }
-    if(__inputManager.keysDown[up])
+    let keys = paddle.name == "Player2" ? [38,40] : [87,83]
+
+    if(__inputManager.keysDown[keys[0]])
         paddle.y -= paddle.speed * 0.06 * delta;
-    if(__inputManager.keysDown[down])
+    if(__inputManager.keysDown[keys[1]])
         paddle.y += paddle.speed * 0.06 * delta;
 }
 
