@@ -7,6 +7,7 @@ function Ball(x,y){
     this.Size            = [10,10];
     this.IsActive        = true;
     this.Direction       = [-1,0];
+    this.LaunchAmplitude = 70;
 }
 
 Ball.prototype.Update = function(delta, gameState){
@@ -23,9 +24,9 @@ Ball.prototype.Update = function(delta, gameState){
 Ball.prototype.GenerateAngle = function(){
 
     //50 degree arc
-    var angle = Math.random() * 50 + 20;
+    var rads = DegToRad(Math.random() * this.LaunchAmplitude - this.LaunchAmplitude/2 );
 
-    return [Math.abs(Math.cos(angle)), Math.sin(angle)];
+    return [Math.abs(Math.cos(rads)), Math.sin(rads)];
 }
 
 Ball.prototype.Render = function(context){
