@@ -15,7 +15,7 @@ Ball.prototype.Update = function(delta, gameState){
     
     //Bounce back ball if out of bound
     if(this.y >= __windowContext.Canvas.height - this.Size[1] 
-    || this.y <= 0 )
+    || this.y <= 0 + __windowContext.GetHeightPercent(0.2))
         this.Direction[1] *= -1;
     
 }
@@ -39,5 +39,6 @@ Ball.prototype.ResetState = function(dir){
     this.y = this.defaultPosition[1];
 
     this.Direction = this.GenerateAngle();
+    console.log(this.Direction);
     this.Direction[0] *= dir;
 }

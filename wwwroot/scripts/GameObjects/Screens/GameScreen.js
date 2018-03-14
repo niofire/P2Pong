@@ -15,7 +15,8 @@ GameScreen.prototype.Setup = function(){
     this.p2ScoreBoard = new TextElement("0", __windowContext.GetWidthPercent(0.75), __windowContext.GetHeightPercent(0.1));
 
     var lineBreak = new LineBreak([0                                   , __windowContext.GetHeightPercent(0.2)], 
-                                  [__windowContext.GetWidthPercent(100), __windowContext.GetHeightPercent(0.2)]);
+                                  [__windowContext.GetWidthPercent(100), __windowContext.GetHeightPercent(0.2)],
+                                  3);
 
     var offset = 50;
     this.ball = new Ball(center[0], center[1]);
@@ -26,7 +27,7 @@ GameScreen.prototype.Setup = function(){
 
     __gameEngine.AddGameObject(this.p1ScoreBoard);
     __gameEngine.AddGameObject(this.p2ScoreBoard);
-    //__gameEngine.AddGameObject(lineBreak);
+    __gameEngine.AddGameObject(lineBreak);
     __gameEngine.AddGameObject(this.player1);
     __gameEngine.AddGameObject(this.player2);
     __gameEngine.AddGameObject(this.ball);

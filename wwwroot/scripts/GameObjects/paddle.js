@@ -31,6 +31,11 @@ Paddle.prototype.Render = function(context){
 
 Paddle.prototype.CheckBallCollision = function(ball){
     if(CheckRectCollision(this, ball)){
+        var pCenter = this.y + this.Size[1] / 2;
+        var bCenter = ball.y + ball.Size[1] / 2;
+
+        //Add/remove deg, up to max of 70 deg
+        
         ball.Direction[0] *= -1;
     }
 }
