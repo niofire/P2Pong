@@ -6,7 +6,7 @@ function Paddle(x,y,name){
     this.speed = 3;
     this.Size = [10,50];
     this.IsActive = true;
-    this.upperLimit = 0;
+    this.upperLimit = __windowContext.GetHeightPercent(0.2);
     this._movementStrategies = [this._onePlayerMovement, this._twoPlayerLocalMovement, this._twoPlayerOnlineMovement];
 }
 
@@ -28,6 +28,7 @@ Paddle.prototype.Render = function(context){
 }
 
 Paddle.prototype.CheckBallCollision = function(ball){
+
     if(CheckRectCollision(this, ball)){
         var pCenter = this.y + this.Size[1] / 2;
         var bCenter = ball.y + ball.Size[1] / 2;
