@@ -1,13 +1,19 @@
 function Ball(x,y){
 
-    this.defaultPosition = [x, y];
+    //Defaults
+    this.DefaultPosition = [x, y];
+    this.DefaultSpeed    = 3;
+    
+    //Fields
     this.x               = x;
     this.y               = y;
-    this.speed           = 2;
+    this.speed           = this.DefaultSpeed;
     this.Size            = [10,10];
     this.IsActive        = true;
     this.Direction       = [-1,0];
     this.LaunchAmplitude = 70;
+    this.MaxSpeed        = 5.0;
+    this.MinSpeed        = 2.0;
 }
 
 Ball.prototype.Update = function(delta, gameState){
@@ -36,10 +42,16 @@ Ball.prototype.Render = function(context){
 }
 
 Ball.prototype.ResetState = function(dir){
-    this.x = this.defaultPosition[0];
-    this.y = this.defaultPosition[1];
+    this.x = this.DefaultPosition[0];
+    this.y = this.DefaultPosition[1];
+    this.speed = this.DefaultSpeed;
 
     this.Direction = this.GenerateAngle();
-    console.log(this.Direction);
     this.Direction[0] *= dir;
+}
+
+Ball.prototype.SetSpeed = function(speed){
+    this.speed = speed;
+    this.speed = Math.min(this.speed, this.MaxSpeed);
+    this.speed = Math.max(this.speed, this.MinSpeed);
 }

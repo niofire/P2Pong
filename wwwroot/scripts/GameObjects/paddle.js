@@ -8,10 +8,13 @@ function Paddle(x,y,name){
     this.IsActive = true;
     this.upperLimit = __windowContext.GetHeightPercent(0.2);
     this._movementStrategies = [this._onePlayerMovement, this._twoPlayerLocalMovement, this._twoPlayerOnlineMovement];
+    this._movementDirection = "none";
+    this.BallSpeedBoost = 0.5;
 }
 
 Paddle.prototype.Update = function(delta, gameState){
        
+    this._movementDirection = "none";
     this._movementStrategies[__gameState.Mode](this, delta);
 
     //Check if out of bound
@@ -36,6 +39,16 @@ Paddle.prototype.CheckBallCollision = function(ball){
         snd.play();
         //Add/remove deg, up to max of 70 deg
         
+        if(this._movementDirection == "up" && ball.Direction[1] < 0 
+        || this._movementDirection == "down" && ball.Direction[1] > 0)
+        {
+            ball.SetSpeed(ball.speed += this.BallSpeedBoost);
+        }
+        else if(this._movementDirection == "up" && ball.Direction[1] > 0 
+             || this._movementDirection == "down" && ball.Direction[1] < 0){
+            ball.SetSpeed(ball.speed -= this.BallSpeedBoost);            
+        }
+
         ball.Direction[0] *= -1;
     }
 }
@@ -44,25 +57,30 @@ Paddle.prototype._onePlayerMovement = function(paddle, delta){
     if(paddle.name != "Player1")
         return;
 
-    if(__inputManager.keysDown[87] || __inputManager.keysDown[38])
+    if(__inputManager.keysDown[87] || __inputManager.keysDown[38]){
+        paddle._movementDirection = "up";
         paddle.y -= paddle.speed * 0.06 * delta;
-    if(__inputManager.keysDown[83] ||  __inputManager.keysDown[40])
+    }
+    if(__inputManager.keysDown[83] ||  __inputManager.keysDown[40]){
+        paddle._movementDirection = "down";
         paddle.y += paddle.speed * 0.06 * delta;
+    }
 }
 
 Paddle.prototype._twoPlayerLocalMovement = function(paddle, delta){
 
     let keys = paddle.name == "Player2" ? [38,40] : [87,83]
 
-    if(__inputManager.keysDown[keys[0]])
+    if(__inputManager.keysDown[keys[0]]){
+        paddle._movementDirection = "up";        
         paddle.y -= paddle.speed * 0.06 * delta;
-    if(__inputManager.keysDown[keys[1]])
+    }
+    if(__inputManager.keysDown[keys[1]]){
+        paddle._movementDirection = "down";
         paddle.y += paddle.speed * 0.06 * delta;
+    }
 }
 
 Paddle.prototype._twoPlayerOnlineMovement = function(paddle, delta){
-    if(__inputManager.keysDown[87] || __inputManager.keysDown[38])
-        paddle.y -= paddle.speed * 0.06 * delta;
-    if(__inputManager.keysDown[83] ||  __inputManager.keysDown[40])
-        paddle.y += paddle.speed * 0.06 * delta;
+    this._onePlayerMovement(paddle,delta);
 }
