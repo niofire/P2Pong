@@ -11,10 +11,13 @@ function Paddle(x,y,name){
     this._movementDirection = "none";
     this.BallSpeedBoost = 0.5;
     this.AngleBoost = 10;
+
+    this._hitCooldown = 0;
 }
 
 Paddle.prototype.Update = function(delta, gameState){
        
+    this._hitCooldown -= delta;
     this._movementDirection = "none";
     this._movementStrategies[__gameState.Mode](this, delta);
 
@@ -33,9 +36,14 @@ Paddle.prototype.Render = function(context){
 
 Paddle.prototype.CheckBallCollision = function(ball){
 
-    if(CheckRectCollision(this, ball)){
+    if(CheckRectCollision(this, ball) && this._hitCooldown < 0){
         //Flip the ball's direction!
-            ball.Direction[0] *= -1;
+        
+        //Paddle won't be able to hit the ball for 200 ms
+        this._hitCooldown = 200;
+        ball.Direction[0] *= -1;
+
+        var oldX = ball.Direction[0];
 
         //Play boop sound effect.
         var snd = new Audio("assets/sound/paddleBoop.wav"); // buffers automatically when created
@@ -44,13 +52,17 @@ Paddle.prototype.CheckBallCollision = function(ball){
         //Add/remove deg, up to max of 70 deg
         var pCenter = this.y + this.Size[1] / 2;
         var bCenter = ball.y + ball.Size[1] / 2;
-
-        //Get ratio
-        //25 / 25 = 1
-        // 25 / 12 = 0.5
-        var distanceRatio = 1 - (this.Size[1] * 0.5) / (pCenter - bCenter);
-        var angle = this.AngleBoost  * distanceRatio;
+        var distanceRatio = (pCenter - bCenter) / (this.Size[1] * 0.5);
+        var angleBoost = DegToRad(this.AngleBoost  * distanceRatio);
         
+        var angle = Math.atan2(ball.Direction[1], ball.Direction[0]);
+        
+        if(ball.Direction[0] > 0)
+            angleBoost *= -1;
+
+        angle += angleBoost;
+        
+        ball.Direction = [Math.cos(angle), Math.sin(angle)];
         
         //Add speed boost
         if(this._movementDirection == "up" && ball.Direction[1] < 0 
