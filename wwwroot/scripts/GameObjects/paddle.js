@@ -81,30 +81,36 @@ Paddle.prototype._onePlayerMovement = function(paddle, delta){
     if(paddle.name != "Player1")
         return;
 
-    if(__inputManager.keysDown[87] || __inputManager.keysDown[38]){
-        paddle._movementDirection = "up";
-        paddle.y -= paddle.speed * 0.06 * delta;
-    }
-    if(__inputManager.keysDown[83] ||  __inputManager.keysDown[40]){
-        paddle._movementDirection = "down";
-        paddle.y += paddle.speed * 0.06 * delta;
-    }
+    if(__inputManager.keysDown[87] || __inputManager.keysDown[38])
+        this.Move("up");
+    
+    if(__inputManager.keysDown[83] ||  __inputManager.keysDown[40])
+        this.Move("down");
 }
 
 Paddle.prototype._twoPlayerLocalMovement = function(paddle, delta){
 
     let keys = paddle.name == "Player2" ? [38,40] : [87,83]
 
-    if(__inputManager.keysDown[keys[0]]){
-        paddle._movementDirection = "up";        
-        paddle.y -= paddle.speed * 0.06 * delta;
-    }
-    if(__inputManager.keysDown[keys[1]]){
-        paddle._movementDirection = "down";
-        paddle.y += paddle.speed * 0.06 * delta;
-    }
+    if(__inputManager.keysDown[keys[0]])   
+        this.Move("up");
+    
+    if(__inputManager.keysDown[keys[1]])
+        this.Move("down");
 }
 
 Paddle.prototype._twoPlayerOnlineMovement = function(paddle, delta){
     this._onePlayerMovement(paddle,delta);
+}
+
+Paddle.prototype.Move = function(direction){
+
+    if(direction == "up"){
+        paddle._movementDirection = "up";        
+        paddle.y -= paddle.speed * 0.06 * delta;
+        return;
+    }
+    
+    paddle._movementDirection = "down";        
+    paddle.y -= paddle.speed * 0.06 * delta;
 }
