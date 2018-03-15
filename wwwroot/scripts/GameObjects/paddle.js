@@ -10,6 +10,7 @@ function Paddle(x,y,name){
     this._movementStrategies = [this._onePlayerMovement, this._twoPlayerLocalMovement, this._twoPlayerOnlineMovement];
     this._movementDirection = "none";
     this.BallSpeedBoost = 0.5;
+    this.AngleBoost = 10;
 }
 
 Paddle.prototype.Update = function(delta, gameState){
@@ -33,12 +34,25 @@ Paddle.prototype.Render = function(context){
 Paddle.prototype.CheckBallCollision = function(ball){
 
     if(CheckRectCollision(this, ball)){
-        var pCenter = this.y + this.Size[1] / 2;
-        var bCenter = ball.y + ball.Size[1] / 2;
+        //Flip the ball's direction!
+            ball.Direction[0] *= -1;
+
+        //Play boop sound effect.
         var snd = new Audio("assets/sound/paddleBoop.wav"); // buffers automatically when created
         snd.play();
+
         //Add/remove deg, up to max of 70 deg
+        var pCenter = this.y + this.Size[1] / 2;
+        var bCenter = ball.y + ball.Size[1] / 2;
+
+        //Get ratio
+        //25 / 25 = 1
+        // 25 / 12 = 0.5
+        var distanceRatio = 1 - (this.Size[1] * 0.5) / (pCenter - bCenter);
+        var angle = this.AngleBoost  * distanceRatio;
         
+        
+        //Add speed boost
         if(this._movementDirection == "up" && ball.Direction[1] < 0 
         || this._movementDirection == "down" && ball.Direction[1] > 0)
         {
@@ -48,8 +62,6 @@ Paddle.prototype.CheckBallCollision = function(ball){
              || this._movementDirection == "down" && ball.Direction[1] < 0){
             ball.SetSpeed(ball.speed -= this.BallSpeedBoost);            
         }
-
-        ball.Direction[0] *= -1;
     }
 }
 
