@@ -28,7 +28,8 @@ OptionsSelector.prototype.Update = function (delta, gameState) {
             console.log("No options in OptionsSelector:" + this);
             return;
         }
-
+        var snd = new Audio("assets/sound/menuBoop.wav"); // buffers automatically when created
+        snd.play();
         this.mOptions[this.CursorIndex].ExecuteAction();
     }
 

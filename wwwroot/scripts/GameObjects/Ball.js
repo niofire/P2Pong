@@ -12,18 +12,25 @@ function Ball(x,y){
     this.IsActive        = true;
     this.Direction       = [-1,0];
     this.LaunchAmplitude = 70;
-    this.MaxSpeed        = 5.0;
+    this.MaxSpeed        = 7.5;
     this.MinSpeed        = 2.0;
+
+    //used to prevent the ball getting stuck on the arena's border.
+    this._hitCooldown    = 0;
 }
 
 Ball.prototype.Update = function(delta, gameState){
     this.x += this.Direction[0] * this.speed * 0.06 * delta;
     this.y += this.Direction[1] * this.speed * 0.06 * delta;
     
+    this._hitCooldown -= delta;
     //Bounce back ball if out of bound
-    if(this.y >= __windowContext.Canvas.height - this.Size[1] 
+    if((this.y >= __windowContext.Canvas.height - this.Size[1] 
     || this.y <= 0 + __windowContext.GetHeightPercent(0.2))
+    && this._hitCooldown < 0){
+        this._hitCooldown = 200;
         this.Direction[1] *= -1;
+    }
     
 }
 
