@@ -2,7 +2,7 @@ function ComputerPlayer(aiPaddle, ball) {
     this._paddle = aiPaddle;
     this._ball = ball;
 
-    this.DetectionLimit = 0.4;
+    this.DetectionLimit = 0.55;
     this._randomState = 0;
     this._stabilizingOffset = 1;
     this.IsActive = true;

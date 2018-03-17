@@ -13,9 +13,11 @@ LineBreak.prototype.Render = function (ctx) {
     ctx.lineTo(this.b[0], this.b[1]);
     ctx.strokeStyle = this.Color;
     ctx.lineWidth = this.Size;
+    if(this.LineDash)
+        ctx.setLineDash(this.LineDash);
+    else
+        ctx.setLineDash([1,0]);
     ctx.stroke();
-    /*ctx.BeginDraw();
-    ctx.DrawLine(x, y);*/
 }
 
 LineBreak.prototype.Update = function (delta) {
