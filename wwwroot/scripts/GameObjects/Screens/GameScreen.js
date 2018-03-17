@@ -49,4 +49,7 @@ GameScreen.prototype.Update = function(delta){
         this.p1ScoreBoard.Text++;
         this.ball.ResetState(-1);
     }
+
+    if(__inputManager.keysDown[27])
+        __screenManager.ChangeScreen(new PlayerSelectMenu());
 }
