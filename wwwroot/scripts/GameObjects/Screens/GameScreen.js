@@ -1,10 +1,11 @@
 //Screen where the player plays a p2p or single player pong game.
 function GameScreen() {
     this.IsActive = true;
+    this.MaxScore = 3;
 }
 
 GameScreen.prototype.Cleanup = function () {
-
+    __gameEngine.Clear();
 }
 
 GameScreen.prototype.Setup = function () {
@@ -49,12 +50,23 @@ GameScreen.prototype.Update = function (delta) {
     if (this.ball.x < 0 - this.ball.Size[0]) {
         this.p2ScoreBoard.Text++;
         this.ball.ResetState(1);
+        
+        if(this.p2ScoreBoard.Text >= this.MaxScore)
+            this._EndGame(__gameState.Player2);
     }
     else if (this.ball.x > __windowContext.Canvas.width) {
         this.p1ScoreBoard.Text++;
         this.ball.ResetState(-1);
+        
+        if(this.p1ScoreBoard.Text >= this.MaxScore)
+            this._EndGame(__gameState.Player1);
     }
 
     if (__inputManager.keysDown[27])
         __screenManager.ChangeScreen(new PlayerSelectMenu());
+}
+
+GameScreen.prototype._EndGame = function(player){
+    __gameState.Winner = player;
+    __screenManager.ChangeScreen(new StartMenu());
 }

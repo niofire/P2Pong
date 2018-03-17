@@ -8,6 +8,6 @@ var __gameState = function(){
     return {
         Player1 : new PlayerState(),
         Player2 : new PlayerState(),
-        Mode: GameMode.ONE_PLAYER
+        Mode: GameMode.ONE_PLAYER,
     }
 }();
