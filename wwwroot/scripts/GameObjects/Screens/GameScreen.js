@@ -31,6 +31,9 @@ GameScreen.prototype.Setup = function(){
     __gameEngine.AddGameObject(this.player1);
     __gameEngine.AddGameObject(this.player2);
     __gameEngine.AddGameObject(this.ball);
+
+    if(__gameState.Mode == GameMode.ONE_PLAYER)
+        __gameEngine.AddGameObject(new ComputerPlayer(this.player2, this.ball));
 }
 
 GameScreen.prototype.Update = function(delta){

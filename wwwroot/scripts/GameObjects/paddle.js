@@ -10,9 +10,20 @@ function Paddle(x,y,name){
     this._movementStrategies = [this._onePlayerMovement, this._twoPlayerLocalMovement, this._twoPlayerOnlineMovement];
     this._movementDirection = "none";
     this.BallSpeedBoost = 0.5;
-    this.AngleBoost = 10;
+    this.AngleBoost = 20;
 
     this._hitCooldown = 0;
+}
+
+Paddle.prototype.Move = function(delta, direction){
+
+    if(direction == "up"){
+        this._movementDirection = "up";        
+        this.y -= this.speed * 0.06 * delta;
+        return;
+    }
+    this._movementDirection = "down";        
+    this.y += this.speed * 0.06 * delta;
 }
 
 Paddle.prototype.Update = function(delta, gameState){
@@ -38,7 +49,8 @@ Paddle.prototype.CheckBallCollision = function(ball){
 
     if(CheckRectCollision(this, ball) && this._hitCooldown < 0){
         //Flip the ball's direction!
-        
+        if(this.OnBallHit)
+            this.OnBallHit();
         //Paddle won't be able to hit the ball for 200 ms
         this._hitCooldown = 200;
         ball.Direction[0] *= -1;
@@ -81,11 +93,12 @@ Paddle.prototype._onePlayerMovement = function(paddle, delta){
     if(paddle.name != "Player1")
         return;
 
-    if(__inputManager.keysDown[87] || __inputManager.keysDown[38])
-        this.Move("up");
+    if(__inputManager.keysDown[87] || __inputManager.keysDown[38]){
+        paddle.Move(delta,"up");
+    }
     
     if(__inputManager.keysDown[83] ||  __inputManager.keysDown[40])
-        this.Move("down");
+        paddle.Move(delta,"down");
 }
 
 Paddle.prototype._twoPlayerLocalMovement = function(paddle, delta){
@@ -93,24 +106,13 @@ Paddle.prototype._twoPlayerLocalMovement = function(paddle, delta){
     let keys = paddle.name == "Player2" ? [38,40] : [87,83]
 
     if(__inputManager.keysDown[keys[0]])   
-        this.Move("up");
+        paddle.Move(delta,"up");
     
     if(__inputManager.keysDown[keys[1]])
-        this.Move("down");
+        paddle.Move(delta,"down");
 }
 
 Paddle.prototype._twoPlayerOnlineMovement = function(paddle, delta){
-    this._onePlayerMovement(paddle,delta);
+    paddle._onePlayerMovement(paddle,delta);
 }
 
-Paddle.prototype.Move = function(direction){
-
-    if(direction == "up"){
-        paddle._movementDirection = "up";        
-        paddle.y -= paddle.speed * 0.06 * delta;
-        return;
-    }
-    
-    paddle._movementDirection = "down";        
-    paddle.y -= paddle.speed * 0.06 * delta;
-}
