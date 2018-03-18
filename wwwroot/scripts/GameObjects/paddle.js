@@ -58,8 +58,7 @@ Paddle.prototype.CheckBallCollision = function(ball){
         var oldX = ball.Direction[0];
 
         //Play boop sound effect.
-        var snd = new Audio("assets/sound/paddleBoop.wav"); // buffers automatically when created
-        snd.play();
+        __soundController.PlaySound(__soundAssets.OnPaddleHit);
 
         //Add/remove deg, up to max of 70 deg
         var pCenter = this.y + this.Size[1] / 2;

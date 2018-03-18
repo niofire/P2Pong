@@ -42,8 +42,7 @@ StartMenu.prototype.Cleanup = function(){
 StartMenu.prototype.Update = function(delta, gameState){
     //if spacebar or enter-, goes to next screen
     if(__inputManager.keysDown[13] || __inputManager.keysDown[32]){
-        var snd = new Audio("assets/sound/menuBoop.wav"); // buffers automatically when created
-        snd.play();
+        __soundController.PlaySound(__soundAssets.OnMenuNavigate);
         __screenManager.ChangeScreen(new PlayerSelectMenu());
     }
 }
