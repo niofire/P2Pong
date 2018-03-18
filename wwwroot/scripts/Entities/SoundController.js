@@ -1,3 +1,4 @@
+
 var __soundController = function(){
 
     var self = this;
@@ -6,11 +7,10 @@ var __soundController = function(){
             this.IsMuted = !this.IsMuted;
     }, true);
 
-    var _playSound = function(soundFile){
+    var _playSound = function(soundBit){
         if(self.IsMuted)
             return;
-        var snd = new Audio(soundFile); // buffers automatically when created
-        snd.play();
+        soundBit.play();
     }
     return{
         IsMuted : false,
