@@ -7,6 +7,7 @@ function TextElement(content, x, y){
 
 
 TextElement.prototype.Render = function(context){
+    context.beginPath();
     if(this.Alignment)
         context.textAlign = this.Alignment;
     

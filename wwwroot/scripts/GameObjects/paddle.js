@@ -9,10 +9,11 @@ function Paddle(x,y,name){
     this.upperLimit = __windowContext.GetHeightPercent(0.2);
     this._movementStrategies = [this._onePlayerMovement, this._twoPlayerLocalMovement, this._twoPlayerOnlineMovement];
     this._movementDirection = "none";
-    this.BallSpeedBoost = 0.5;
+    this.BallSpeedBoost = 0.7;
     this.AngleBoost = 20;
 
     this._hitCooldown = 0;
+    this.IsPaused = false;
 }
 
 Paddle.prototype.Move = function(delta, direction){
@@ -28,6 +29,8 @@ Paddle.prototype.Move = function(delta, direction){
 
 Paddle.prototype.Update = function(delta, gameState){
        
+    if(this.IsPaused)
+        return;
     this._hitCooldown -= delta;
     this._movementDirection = "none";
     this._movementStrategies[__gameState.Mode](this, delta);
@@ -83,7 +86,7 @@ Paddle.prototype.CheckBallCollision = function(ball){
         }
         else if(this._movementDirection == "up" && ball.Direction[1] > 0 
              || this._movementDirection == "down" && ball.Direction[1] < 0){
-            ball.SetSpeed(ball.speed -= this.BallSpeedBoost);            
+            ball.SetSpeed(ball.speed -= this.BallSpeedBoost * 0.5);            
         }
     }
 }

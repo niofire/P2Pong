@@ -17,9 +17,14 @@ function Ball(x,y){
 
     //used to prevent the ball getting stuck on the arena's border.
     this._hitCooldown    = 0;
+
+    this.IsPaused = false;
 }
 
 Ball.prototype.Update = function(delta, gameState){
+
+    if(this.IsPaused)
+        return;
     this.x += this.Direction[0] * this.speed * 0.06 * delta;
     this.y += this.Direction[1] * this.speed * 0.06 * delta;
     

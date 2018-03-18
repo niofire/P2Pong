@@ -2,6 +2,8 @@
 function GameScreen() {
     this.IsActive = true;
     this.MaxScore = 3;
+
+    this.ScoreCountdownTimer = 3000;
 }
 
 GameScreen.prototype.Cleanup = function () {
@@ -12,9 +14,11 @@ GameScreen.prototype.Setup = function () {
     var center = __windowContext.GetScreenCenter();
 
     //UI
-    this.p1ScoreBoard = new TextElement("0", __windowContext.GetWidthPercent(0.25), __windowContext.GetHeightPercent(0.1));
-    this.p2ScoreBoard = new TextElement("0", __windowContext.GetWidthPercent(0.75), __windowContext.GetHeightPercent(0.1));
-
+    this.p1ScoreBoard = new TextElement("0", __windowContext.GetWidthPercent(0.1), __windowContext.GetHeightPercent(0.13));
+    this.p2ScoreBoard = new TextElement("0", __windowContext.GetWidthPercent(0.9), __windowContext.GetHeightPercent(0.13));
+    
+    this._scoreCountdown = new TextElement("3", __windowContext.GetWidthPercent(0.5),__windowContext.GetHeightPercent(0.5));
+    this._scoreCountdown.Size = 60;
     var lineBreak = new LineBreak([0, __windowContext.GetHeightPercent(0.2)],
         [__windowContext.GetWidthPercent(100), __windowContext.GetHeightPercent(0.2)],
         3);
@@ -32,32 +36,53 @@ GameScreen.prototype.Setup = function () {
 
     __gameEngine.AddGameObject(this.p1ScoreBoard);
     __gameEngine.AddGameObject(this.p2ScoreBoard);
+    __gameEngine.AddGameObject(new TitleLabel());
     __gameEngine.AddGameObject(lineBreak);
     __gameEngine.AddGameObject(fieldDivider);
     __gameEngine.AddGameObject(this.player1);
     __gameEngine.AddGameObject(this.player2);
     __gameEngine.AddGameObject(this.ball);
 
-    if (__gameState.Mode == GameMode.ONE_PLAYER)
-        __gameEngine.AddGameObject(new ComputerPlayer(this.player2, this.ball));
+    __gameEngine.AddGameObject(this._scoreCountdown);
+    if (__gameState.Mode == GameMode.ONE_PLAYER){
+        this._computerPlayer = new ComputerPlayer(this.player2, this.ball)
+        __gameEngine.AddGameObject(this._computerPlayer);
+    }
 }
 
 GameScreen.prototype.Update = function (delta) {
     this.player1.CheckBallCollision(this.ball);
     this.player2.CheckBallCollision(this.ball);
 
+    this.ScoreCountdownTimer -= delta;
+    if(this.ScoreCountdownTimer > 0){
+        this._scoreCountdown.IsActive = true;
+        this._scoreCountdown.Text = Math.floor(this.ScoreCountdownTimer / 1000) + 1;
+        this.player1.IsPaused = true;
+        this.player2.IsPaused = true;
+        this.ball.IsPaused = true;
+        this._computerPlayer.IsPaused = true;
+        return;
+    }
+    else{
+        this.player1.IsPaused = false;
+        this.player2.IsPaused = false;
+        this.ball.IsPaused = false;
+        this._computerPlayer.IsPaused = false;
+        this._scoreCountdown.IsActive = false;
+    }
     //Check if scored
     if (this.ball.x < 0 - this.ball.Size[0]) {
         this.p2ScoreBoard.Text++;
         this.ball.ResetState(1);
-        
+        this.ScoreCountdownTimer = 3000;
         if(this.p2ScoreBoard.Text >= this.MaxScore)
             this._EndGame(__gameState.Player2);
     }
     else if (this.ball.x > __windowContext.Canvas.width) {
         this.p1ScoreBoard.Text++;
         this.ball.ResetState(-1);
-        
+        this.ScoreCountdownTimer = 3000;
         if(this.p1ScoreBoard.Text >= this.MaxScore)
             this._EndGame(__gameState.Player1);
     }

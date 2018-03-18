@@ -9,6 +9,8 @@ function ComputerPlayer(aiPaddle, ball) {
     this._paddle.speed = 2;
     var self = this;
     this.StopTimer = 0;
+
+    this.IsPaused = false;
     this._paddle.OnBallHit = function(){
         self._randomState = self._generateRandomState();
         self.StopTimer = 1500;
@@ -21,6 +23,8 @@ ComputerPlayer.prototype.Render = function (ctx) {
 
 ComputerPlayer.prototype.Update = function (delta) {
 
+    if(this.IsPaused)
+        return;
     //Update random state
     this.StopTimer -= delta;
     //AI is always on the right.

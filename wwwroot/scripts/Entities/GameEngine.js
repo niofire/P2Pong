@@ -31,7 +31,6 @@ var __gameEngine = function() {
     }
 
     var _update = function (delta, gameState) {
-
         if (!mGameObjects)
             return;
 
