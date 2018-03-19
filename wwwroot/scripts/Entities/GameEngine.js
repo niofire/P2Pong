@@ -7,10 +7,10 @@ var __gameEngine = function() {
 
     window.addEventListener("load", function(){
         __windowContext.Init();
-        _init();
+        _Init();
     });
 
-    var _animator =
+    var _Animator =
         window.requestAnimationFrame ||
         window.webkitRequestAnimationFrame ||
         window.mozRequestAnimationFrame ||
@@ -20,30 +20,30 @@ var __gameEngine = function() {
 
     var mGameObjects = [];
 
-    var _mainLoop = function (timeElapsed) {
+    var _MainLoop = function (timeElapsed) {
 
-        _animator(_mainLoop);
+        _Animator(_MainLoop);
         var delta = timeElapsed - lastFrame;
         lastFrame = timeElapsed;
 
-        _update(delta, mGameState);
-        _render(ctx);
+        _Update(delta, mGameState);
+        _Render(ctx);
     }
 
-    var _update = function (delta, gameState) {
+    var _Update = function (delta, gameState) {
         if (!mGameObjects)
             return;
 
         mGameObjects.forEach((gameObject) => {
 
-            if (!gameObject.IsActive || !gameObject.Update)
+            if (!gameObject.IsActive || !gameObject.Update || gameObject.IsPaused)
                 return;
             
             gameObject.Update(delta, gameState);
         })
     }
 
-    var _render = function (ctx) {
+    var _Render = function (ctx) {
 
         ctx.clearRect(0, 0, __windowContext.Canvas.width, __windowContext.Canvas.height);
 
@@ -59,30 +59,43 @@ var __gameEngine = function() {
         })
     }
 
-    var _addGameObject = function(gameObject){
+    var _AddGameObject = function(gameObject){
         if(!gameObject)
             return;
         mGameObjects.push(gameObject);
     }
 
-    var _clear = function(){
+    var _Clear = function(){
         mGameObjects = [];
     }
 
-    var _setState = function(gameState){
+    var _SetState = function(gameState){
         mGameState = gameState;
     }
 
-    var _init = function(){
+    var _Init = function(){
         if(mIsInitialize)
             return;
         mIsInitialize = true;
         ctx =  __windowContext.Canvas.getContext("2d");
         __gameEngine.ctx =  ctx;
-        _mainLoop(0);
+        _MainLoop(0);
+    }
+    var _Pause = function(){
+        mGameObjects.forEach((gameObject) =>{
+            gameObject.IsPaused = true;
+        })
+    }
+
+    var _Resume = function(){
+        mGameObjects.forEach((gameObject) =>{
+            gameObject.IsPaused = false;
+        })
     }
     return{
-        AddGameObject : _addGameObject,
-        Clear : _clear
+        AddGameObject : _AddGameObject,
+        Clear : _Clear,
+        Pause : _Pause,
+        Resume : _Resume
     }
 }();

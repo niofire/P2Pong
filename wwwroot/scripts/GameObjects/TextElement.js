@@ -5,7 +5,6 @@ function TextElement(content, x, y){
     this.IsActive = true;
 }
 
-
 TextElement.prototype.Render = function(context){
     context.beginPath();
     if(this.Alignment)
@@ -13,7 +12,7 @@ TextElement.prototype.Render = function(context){
     
     if(!this.Size)
         this.Size = 30;
-    
+
     context.font = this.Size + 'px "Press Start 2P"';
 
     if(!this.color)
@@ -26,4 +25,3 @@ TextElement.prototype.Update = function(delta, gameState){
     if(this.Effect)
         this.Effect(delta, gameState);
 }
-
