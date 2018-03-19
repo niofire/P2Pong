@@ -1,7 +1,6 @@
 function MutliplayerOptionMenu(gameEngine){
     this._gameEngine = gameEngine;
     this.IsActive = true;
-    console.log("hi");
 }
 
 MutliplayerOptionMenu.prototype.Update = function(delta, gameState){

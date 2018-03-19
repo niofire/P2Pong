@@ -72,7 +72,6 @@ OptionsSelector.prototype._refreshItems = function () {
         option.cursor.y = height;
         offset++;
     })
-    console.log(this.mOptions);
 }
 
 OptionsSelector.prototype.AddOption = function (label, action) {
