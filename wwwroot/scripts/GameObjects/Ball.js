@@ -21,6 +21,7 @@ function Ball(x, y) {
     this._hitCooldown = 0;
 
     this.IsPaused = false;
+    this.ArenaUpperBound = 0.2;
 }
 
 Ball.prototype.Update = function (delta, gameState) {
@@ -33,7 +34,7 @@ Ball.prototype.Update = function (delta, gameState) {
     this._hitCooldown -= delta;
     //Bounce back ball if out of bound
     if ((this.y >= __windowContext.Canvas.height - this.Size[1]
-        || this.y <= 0 + __windowContext.GetHeightPercent(0.2))
+        || this.y <= 0 + __windowContext.GetHeightPercent(this.ArenaUpperBound))
         && this._hitCooldown < 0) {
         this._hitCooldown = 200;
         this.Direction[1] *= -1;
@@ -52,7 +53,7 @@ Ball.prototype.Render = function (context) {
     context.fillRect(this.x, this.y, this.Size[0], this.Size[1]);
 }
 
-Ball.prototype.ResetState = function (dir) {
+Ball.prototype.Launch = function (dir) {
     this.x = this.DefaultPosition[0];
     this.y = this.DefaultPosition[1];
     this.speed = this.DefaultSpeed;

@@ -22,9 +22,9 @@ GameScreen.prototype.Setup = function () {
         [__windowContext.GetWidthPercent(0.5), __windowContext.GetHeightPercent(1)],
         3);
     fieldDivider.LineDash = [10, 8];
-    var offset = 50;
     
     //Game objects
+    var offset = 50;
     this.ball = new Ball(center[0], center[1]);
     this.player1 = new Paddle(offset, center[1], __gameState.Player1.Name);
     this.player2 = new Paddle(__windowContext.Canvas.width - offset, center[1], __gameState.Player2.Name)
@@ -59,7 +59,7 @@ GameScreen.prototype.Update = function (delta) {
         this.player1.Reset();
         this.player2.Reset();
         this.p2ScoreBoard.Text++;
-        this.ball.ResetState(1);
+        this.ball.Launch(1);
         this._scoreCountdown.StartCountdown(3);
         if (this.p2ScoreBoard.Text >= this.MaxScore)
             this._EndGame(__gameState.Player2);
@@ -68,7 +68,7 @@ GameScreen.prototype.Update = function (delta) {
         this.player1.Reset();
         this.player2.Reset();
         this.p1ScoreBoard.Text++;
-        this.ball.ResetState(-1);
+        this.ball.Launch(-1);
         this._scoreCountdown.StartCountdown(3);
         if (this.p1ScoreBoard.Text >= this.MaxScore)
             this._EndGame(__gameState.Player1);

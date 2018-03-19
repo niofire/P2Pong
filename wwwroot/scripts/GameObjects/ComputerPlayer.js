@@ -1,16 +1,16 @@
 function ComputerPlayer(aiPaddle, ball) {
-    this._paddle = aiPaddle;
-    this._ball = ball;
 
+    this.IsActive = true;
+    this.IsPaused = false;
+    this.StopTimer = 0;
     this.DetectionLimit = 0.55;
+    this._ball = ball;
+    this._paddle = aiPaddle;
     this._randomState = 0;
     this._stabilizingOffset = 1;
-    this.IsActive = true;
     this._paddle.speed = 2;
     var self = this;
-    this.StopTimer = 0;
 
-    this.IsPaused = false;
     this._paddle.OnBallHit = function () {
         self._randomState = self._generateRandomState();
         self.StopTimer = 1500;

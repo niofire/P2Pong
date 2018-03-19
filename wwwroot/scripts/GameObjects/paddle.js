@@ -6,7 +6,7 @@ function Paddle(x, y, name) {
     this.speed = 3;
     this.Size = [10, 50];
     this.IsActive = true;
-    this.upperLimit = __windowContext.GetHeightPercent(0.2);
+    this.ArenaUpperBound = __windowContext.GetHeightPercent(0.2);
     this._movementStrategies = [this._onePlayerMovement, this._twoPlayerLocalMovement, this._twoPlayerOnlineMovement];
     this._movementDirection = "none";
     this.BallSpeedBoost = 0.7;
@@ -26,8 +26,8 @@ Paddle.prototype.Update = function (delta, gameState) {
     this._movementStrategies[__gameState.Mode](this, delta);
 
     //Check if out of bound
-    if (this.y < this.upperLimit)
-        this.y = this.upperLimit;
+    if (this.y < this.ArenaUpperBound)
+        this.y = this.ArenaUpperBound;
     else
         this.y = Math.min(this.y, __windowContext.Canvas.height - this.Size[1]);
 }
