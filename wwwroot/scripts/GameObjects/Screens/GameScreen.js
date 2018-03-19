@@ -42,11 +42,12 @@ GameScreen.prototype.Setup = function () {
     __gameEngine.AddGameObject(this.player2);
     __gameEngine.AddGameObject(this.ball);
 
-    __gameEngine.AddGameObject(this._scoreCountdown);
     if (__gameState.Mode == GameMode.ONE_PLAYER) {
         this._computerPlayer = new ComputerPlayer(this.player2, this.ball)
         __gameEngine.AddGameObject(this._computerPlayer);
     }
+
+    this._scoreCountdown.StartCountdown(3);
 }
 
 GameScreen.prototype.Update = function (delta) {
