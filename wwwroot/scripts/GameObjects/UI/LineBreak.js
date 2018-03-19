@@ -8,6 +8,7 @@ function LineBreak(a, b, size) {
 
 
 LineBreak.prototype.Render = function (ctx) {
+    
     ctx.beginPath();
     ctx.moveTo(this.a[0], this.a[1]);
     ctx.lineTo(this.b[0], this.b[1]);
