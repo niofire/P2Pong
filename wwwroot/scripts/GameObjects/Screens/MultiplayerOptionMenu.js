@@ -23,6 +23,9 @@ MutliplayerOptionMenu.prototype.Setup = function(){
         __screenManager.ChangeScreen(new P2PSelectMenu());
     })
 
+    var muteDisclaimer = new MuteDisclaimer();
+    __gameEngine.AddGameObject(muteDisclaimer);
+
     __gameEngine.AddGameObject(selector);
 }
 

@@ -53,7 +53,6 @@ GameScreen.prototype.Update = function (delta) {
     //Check for paddle/ball collision
     this.player1.CheckBallCollision(this.ball);
     this.player2.CheckBallCollision(this.ball);
-
     //Check if scored
     if (this.ball.x < 0 - this.ball.Size[0]) {
         this.player1.Reset();

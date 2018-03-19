@@ -12,4 +12,5 @@ TitleLabel.prototype.Render = function (context) {
 
 TitleLabel.prototype.Update = function (delta, gameState) {
     this.TextElement.Update(delta, gameState);
+
 }

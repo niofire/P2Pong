@@ -3,13 +3,13 @@ function TextElement(content, x, y){
     this.y = y;
     this.Text = content;
     this.IsActive = true;
+    this.Alignment = "center";
 }
 
 TextElement.prototype.Render = function(context){
     context.beginPath();
     if(this.Alignment)
         context.textAlign = this.Alignment;
-    
     if(!this.Size)
         this.Size = 30;
 

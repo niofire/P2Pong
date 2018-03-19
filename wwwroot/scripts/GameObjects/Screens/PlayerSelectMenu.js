@@ -21,6 +21,9 @@ PlayerSelectMenu.prototype.Setup = function(){
         __screenManager.ChangeScreen(new MutliplayerOptionMenu());
     })
 
+    var muteDisclaimer = new MuteDisclaimer();
+    __gameEngine.AddGameObject(muteDisclaimer);
+
     __gameEngine.AddGameObject(selector);
 }
 

@@ -21,6 +21,9 @@ P2PSelectMenu.prototype.Setup = function(){
         __screenManager.ChangeScreen(new JoinMenu());
     })
 
+    var muteDisclaimer = new MuteDisclaimer();
+    __gameEngine.AddGameObject(muteDisclaimer);
+
     __gameEngine.AddGameObject(selector);
 }
 

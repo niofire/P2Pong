@@ -49,7 +49,7 @@ Paddle.prototype.Move = function (delta, direction) {
     this.y += this.speed * 0.06 * delta;
 }
 
-Paddle.prototype.Reset = function(){
+Paddle.prototype.Reset = function () {
     this.y = __windowContext.GetHeightPercent(0.5);
 }
 
@@ -57,8 +57,8 @@ Paddle.prototype.CheckBallCollision = function (ball) {
 
     if (!CheckRectCollision(this, ball) || this._hitCooldown > 0)
         return;
-    
-        //Paddle won't be able to hit the ball for 200 ms
+
+    //Paddle won't be able to hit the ball for 200 ms
     this._hitCooldown = 200;
 
     //Execute paddle's OnBallHit callback!
@@ -68,11 +68,11 @@ Paddle.prototype.CheckBallCollision = function (ball) {
     //Reverse ball direction!
     ball.Direction[0] *= -1;
 
-    //Play boop sound effect.
-    __soundController.PlaySound(__soundAssets.OnPaddleHit);
-
     this._updateBallAngle(ball);
     this._updateBallSpeed(ball);
+
+    //Play boop sound effect.
+    __soundController.PlaySound(__soundAssets.OnPaddleHit);
 }
 
 Paddle.prototype._onePlayerMovement = function (paddle, delta) {

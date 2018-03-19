@@ -26,6 +26,9 @@ HostMenu.prototype.Setup = function(){
     __gameEngine.AddGameObject(waitingAnimation);
     __gameEngine.AddGameObject(shareCodeLabel);
 
+    var muteDisclaimer = new MuteDisclaimer();
+    __gameEngine.AddGameObject(muteDisclaimer);
+
 }
 
 HostMenu.prototype.Cleanup = function(){

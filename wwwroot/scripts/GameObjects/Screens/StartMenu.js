@@ -54,8 +54,9 @@ StartMenu.prototype.Setup = function () {
     
     var comp2  =new ComputerPlayer(this.player2, this.ball);
     comp2.DetectionLimit = 0;
-    
 
+    var muteDisclaimer = new MuteDisclaimer();
+    __gameEngine.AddGameObject(muteDisclaimer);
     __gameEngine.AddGameObject(this.player1);
     __gameEngine.AddGameObject(comp1);
     __gameEngine.AddGameObject(this.player2);
