@@ -14,20 +14,18 @@ GameScreen.prototype.Setup = function () {
     //UI
     this.p1ScoreBoard = new TextElement("0", __windowContext.GetWidthPercent(0.1), __windowContext.GetHeightPercent(0.13));
     this.p2ScoreBoard = new TextElement("0", __windowContext.GetWidthPercent(0.9), __windowContext.GetHeightPercent(0.13));
-
     this._scoreCountdown = new GameCountdown();
-
     var lineBreak = new LineBreak([0, __windowContext.GetHeightPercent(0.2)],
         [__windowContext.GetWidthPercent(100), __windowContext.GetHeightPercent(0.2)],
         3);
-
     var fieldDivider = new LineBreak([__windowContext.GetWidthPercent(0.5), __windowContext.GetHeightPercent(0.2)],
         [__windowContext.GetWidthPercent(0.5), __windowContext.GetHeightPercent(1)],
         3);
     fieldDivider.LineDash = [10, 8];
     var offset = 50;
+    
+    //Game objects
     this.ball = new Ball(center[0], center[1]);
-
     this.player1 = new Paddle(offset, center[1], __gameState.Player1.Name);
     this.player2 = new Paddle(__windowContext.Canvas.width - offset, center[1], __gameState.Player2.Name)
     this.player2.x -= this.player2.Size[0];
@@ -58,6 +56,8 @@ GameScreen.prototype.Update = function (delta) {
 
     //Check if scored
     if (this.ball.x < 0 - this.ball.Size[0]) {
+        this.player1.Reset();
+        this.player2.Reset();
         this.p2ScoreBoard.Text++;
         this.ball.ResetState(1);
         this._scoreCountdown.StartCountdown(3);
@@ -65,6 +65,8 @@ GameScreen.prototype.Update = function (delta) {
             this._EndGame(__gameState.Player2);
     }
     else if (this.ball.x > __windowContext.Canvas.width) {
+        this.player1.Reset();
+        this.player2.Reset();
         this.p1ScoreBoard.Text++;
         this.ball.ResetState(-1);
         this._scoreCountdown.StartCountdown(3);
@@ -76,7 +78,9 @@ GameScreen.prototype.Update = function (delta) {
         __screenManager.ChangeScreen(new PlayerSelectMenu());
 }
 
+
+
 GameScreen.prototype._EndGame = function (player) {
     __gameState.Winner = player;
-    __screenManager.ChangeScreen(new StartMenu());
+    __screenManager.ChangeScreen(new GameOverScreen());
 }

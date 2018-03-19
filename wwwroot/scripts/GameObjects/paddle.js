@@ -16,17 +16,6 @@ function Paddle(x, y, name) {
     this.IsPaused = false;
 }
 
-Paddle.prototype.Move = function (delta, direction) {
-
-    if (direction == "up") {
-        this._movementDirection = "up";
-        this.y -= this.speed * 0.06 * delta;
-        return;
-    }
-    this._movementDirection = "down";
-    this.y += this.speed * 0.06 * delta;
-}
-
 Paddle.prototype.Update = function (delta, gameState) {
 
     if (this.IsPaused)
@@ -47,6 +36,21 @@ Paddle.prototype.Render = function (context) {
     context.beginPath();
     context.fillStyle = "#FFFFFF";
     context.fillRect(this.x, this.y, this.Size[0], this.Size[1]);
+}
+
+Paddle.prototype.Move = function (delta, direction) {
+
+    if (direction == "up") {
+        this._movementDirection = "up";
+        this.y -= this.speed * 0.06 * delta;
+        return;
+    }
+    this._movementDirection = "down";
+    this.y += this.speed * 0.06 * delta;
+}
+
+Paddle.prototype.Reset = function(){
+    this.y = __windowContext.GetHeightPercent(0.5);
 }
 
 Paddle.prototype.CheckBallCollision = function (ball) {
