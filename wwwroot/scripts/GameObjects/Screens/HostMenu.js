@@ -28,6 +28,7 @@ HostMenu.prototype.Setup = function(){
 
     var muteDisclaimer = new MuteDisclaimer();
     __gameEngine.AddGameObject(muteDisclaimer);
+    __gameEngine.AddGameObject(new EscapeHandler(new PlayerSelectMenu()));
 
 }
 

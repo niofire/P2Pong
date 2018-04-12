@@ -14,6 +14,7 @@ PlayerSelectMenu.prototype.Setup = function(){
 
     var selector = new OptionsSelector();
     selector.AddOption("1 PLAYER", function(){
+        __gameState.Mode = GameMode.ONE_PLAYER;
         __screenManager.ChangeScreen(new GameScreen());
     })
 

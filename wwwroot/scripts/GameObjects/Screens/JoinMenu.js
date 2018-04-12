@@ -25,6 +25,8 @@ JoinMenu.prototype.Setup = function(){
     __gameEngine.AddGameObject(muteDisclaimer);
 
     __gameEngine.AddGameObject(selector);
+    __gameEngine.AddGameObject(new EscapeHandler(new P2PSelectMenu()));
+
 }
 
 JoinMenu.prototype.Cleanup = function(){
