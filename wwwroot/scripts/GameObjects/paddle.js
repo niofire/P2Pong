@@ -58,26 +58,32 @@ Paddle.prototype.CheckBallCollision = function (ball) {
     if (!CheckRectCollision(this, ball) || this._hitCooldown > 0)
         return;
 
-    //Paddle won't be able to hit the ball for 200 ms
-    this._hitCooldown = 200;
+        //Paddle won't be able to hit the ball for 200 ms
+    this._hitCooldown = 800;
 
     //Execute paddle's OnBallHit callback!
     if (this.OnBallHit)
         this.OnBallHit();
 
     //Reverse ball direction!
-    ball.Direction[0] *= -1;
+    console.log(ball.Direction[0]);
 
     this._updateBallAngle(ball);
+    console.log(ball.Direction[0]);
     this._updateBallSpeed(ball);
+    console.log(ball.Direction[0]);
 
     //Play boop sound effect.
+    ball.Direction[0] = Math.abs(ball.Direction[0]);
+    if(this.name == __gameState.Player2.Name)
+        ball.Direction[0] *= -1;
+    console.log(ball.Direction[0]);
     __soundController.PlaySound(__soundAssets.OnPaddleHit);
 }
 
 Paddle.prototype._onePlayerMovement = function (paddle, delta) {
 
-    if (paddle.name != "Player1")
+    if (paddle.name != __gameState.Player1.Name)
         return;
 
     if (__inputManager.keysDown[87] || __inputManager.keysDown[38]) {
@@ -90,7 +96,7 @@ Paddle.prototype._onePlayerMovement = function (paddle, delta) {
 
 Paddle.prototype._twoPlayerLocalMovement = function (paddle, delta) {
 
-    let keys = paddle.name == "Player2" ? [38, 40] : [87, 83]
+    let keys = paddle.name == __gameState.Player2.Name ? [38, 40] : [87, 83]
 
     if (__inputManager.keysDown[keys[0]])
         paddle.Move(delta, "up");
