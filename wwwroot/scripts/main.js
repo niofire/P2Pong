@@ -3,6 +3,7 @@ window.onload = function(){
     __gameState.Player1.Name = "Player1";
     __gameState.Player2.Name = "Player2";
     __screenManager.ChangeScreen(new StartMenu());
+    document.getElementById("GameCanvas").style.borderColor = "#FFFFFF";
 }
 
 window.addEventListener("keydown", function (e) {

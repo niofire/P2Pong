@@ -27,6 +27,8 @@ MutliplayerOptionMenu.prototype.Setup = function(){
     __gameEngine.AddGameObject(muteDisclaimer);
 
     __gameEngine.AddGameObject(selector);
+    __gameEngine.AddGameObject(new EscapeHandler(new PlayerSelectMenu()));
+
 }
 
 MutliplayerOptionMenu.prototype.Cleanup = function(){
