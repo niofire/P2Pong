@@ -52,7 +52,7 @@ Paddle.prototype.Move = function (delta, direction) {
 Paddle.prototype.Reset = function () {
     this.y = __windowContext.GetHeightPercent(0.5);
 }
-
+var co = 0;
 Paddle.prototype.CheckBallCollision = function (ball) {
 
     if (!CheckRectCollision(this, ball) || this._hitCooldown > 0)
@@ -65,19 +65,15 @@ Paddle.prototype.CheckBallCollision = function (ball) {
     if (this.OnBallHit)
         this.OnBallHit();
 
-    //Reverse ball direction!
-    console.log(ball.Direction[0]);
-
     this._updateBallAngle(ball);
-    console.log(ball.Direction[0]);
     this._updateBallSpeed(ball);
-    console.log(ball.Direction[0]);
 
-    //Play boop sound effect.
+    //Reverse ball direction!
     ball.Direction[0] = Math.abs(ball.Direction[0]);
     if(this.name == __gameState.Player2.Name)
         ball.Direction[0] *= -1;
-    console.log(ball.Direction[0]);
+
+        //Play boop sound effect.
     __soundController.PlaySound(__soundAssets.OnPaddleHit);
 }
 
