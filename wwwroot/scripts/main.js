@@ -13,3 +13,9 @@ window.addEventListener("keydown", function (e) {
     }
 
 }, false);
+
+
+var onCanvasClick = function(){
+    if(__inputManager.onCanvasClick)
+        __inputManager.onCanvasClick();
+}

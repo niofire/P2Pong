@@ -9,8 +9,19 @@
     <link rel="stylesheet" type="text/css" media="screen" href="pong.css" />
     <title>Document</title>
 
+
+    <!-- 3rd Party -->
+    <script src="3rdParty/canvasInput/canvasInput.min.js"></script>
+
+	<!-- P2P Networking -->
+    <script src="scripts/SimpleRTCDataChannel/SimpleRTCDataChannel.js"></script>
+    <script src="scripts/SimpleRTCDataChannel/SimpleRTCPeerConnection.js"></script>
+    <script src="scripts/SimpleRTCDataChannel/Utility.js"></script>
+    <script src="scripts/SimpleRTCDataChannel/WsConnection.js"></script>
+
     <!-- Assets -->
     <script src="scripts/Assets/SoundAssets.js"></script>
+   
     <!-- Utilities -->
     <script src="scripts/Utilities/Math.js"></script>
 
@@ -22,10 +33,12 @@
     <script src="scripts/GameState/GameState.js"></script>
 
     <!-- Entities -->
+    <script src="scripts/Entities/Clipboard.js"></script>    
     <script src="scripts/Entities/SoundController.js"></script>
     <script src="scripts/Entities/InputManager.js"></script>
     <script src="scripts/Entities/ScreenManager.js"></script>
     <script src="scripts/Entities/WindowContext.js"></script>
+    <script src="scripts/Entities/NetworkService.js"></script>
 
     <!-- Engine -->
     <script src="scripts/Entities/GameEngine.js"></script>
@@ -58,7 +71,12 @@
 </head>
 
 <body>
-    <canvas id="GameCanvas">
+        <textarea id="bar" style="margin-left: -1000%">hello</textarea>
+    
+        
+        <canvas id="GameCanvas" onclick="onCanvasClick()">
+        <p class="btn" id="my" data-clipboard-action="copy" data-clipboard-target="#bar" style="width:100%; height:100%">Cut</p>
+            
     </canvas>
 </body>
 

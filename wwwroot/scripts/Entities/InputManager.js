@@ -1,6 +1,7 @@
 
 var __inputManager = (function () {
     var _keysDown = {};
+    var _isClicked = false; 
 
     window.addEventListener("keydown", function (event) {
         _keysDown[event.keyCode || e.which] = true;
@@ -17,7 +18,18 @@ var __inputManager = (function () {
         _keysDown[40] = false;
     });
 
+    window.addEventListener("load", function(event){
+        var canvas = document.getElementById("GameCanvas");
+        canvas.onmousedown = function(event){
+            __inputManager.isClicked = true;
+        }
+        canvas.onmouseup = function(event){
+            __inputManager.isClicked = false;
+        }
+    })
+
     return {
-        keysDown: _keysDown
+        keysDown: _keysDown,
+        isClicked : _isClicked,
     }
 })();
